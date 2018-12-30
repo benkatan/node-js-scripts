@@ -1,0 +1,54 @@
+var ex;
+if(process.argv.length <= 2) {
+    console.log("please deliver an expression");
+    return false;
+}
+
+ex = process.argv[2]
+
+function validExpression(expression){    
+    var stack = [];
+    for(var c in expression){
+        var char = expression[c];
+      
+        if(char == '(' || char == '{' || char == '['){
+            stack.push(char);
+
+        } else {
+            if(stack.length == 0){
+                console.log("empty");
+                return false;
+            }
+            
+            switch(char) {
+                case ')': {
+                   
+                    if(stack.pop()  !== '('){   
+                        console.log(char +"at index ->>>"+ c);             
+                        return false;
+                    }
+                    break;
+                }
+                
+                case '}': {
+                    if(stack.pop() !== '{'){    
+                        console.log(char +"at index ->>>"+ c);                 
+                        return false;
+                    }
+                    break;
+                }
+                
+                case ']': {
+                    if(stack.pop() !== '['){     
+                        console.log(char +"at index ->>>"+ c);                
+                        return false;
+                    }
+                    break;
+                }
+            }
+        }
+    }
+    return stack.length == 0 &&  true 
+}
+
+console.log(validExpression(ex));
